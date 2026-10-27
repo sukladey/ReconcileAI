@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <title>ReconcileAI | Payment Reconciliation</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <h1>Reconcile<span>AI</span></h1>
+      <p>Private payment reconciliation workspace</p>
+    </div>
+    <div class="privacy-badge">
+      <span aria-hidden="true">🔒</span>
+      <span>Browser-only processing</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="welcome">
+      <span class="eyebrow">FINANCIAL OPERATIONS</span>
+      <h2>Financial Reconciliation Dashboard</h2>
+      <p>Compare payment records with your bank statement, identify discrepancies, and download a reconciliation report.</p>
+
+      <div class="privacy-note">
+        <span aria-hidden="true">🛡️</span>
+        <div>
+          <strong>Your privacy matters.</strong>
+          CSV files are processed locally in your browser and are not uploaded by this dashboard.
+        </div>
+      </div>
+    </section>
+
+    <section class="panel upload-panel">
+      <div class="section-heading">
+        <div>
+          <h2>Upload your records</h2>
+          <p>Select the two CSV files you want to reconcile.</p>
+        </div>
+        <span class="step-label">STEP 01</span>
+      </div>
+
+      <div class="upload-grid">
+        <label class="upload-box" for="payments">
+          <span class="upload-icon" aria-hidden="true">📄</span>
+          <span class="upload-title">Payment records</span>
+          <span class="upload-description">Your payment system's CSV export</span>
+          <input id="payments" type="file" accept=".csv,text/csv">
+          <span class="file-name" id="payment-name">No file selected</span>
+        </label>
+
+        <label class="upload-box" for="bank">
+          <span class="upload-icon" aria-hidden="true">🏦</span>
+          <span class="upload-title">Bank statement</span>
+          <span class="upload-description">Your bank's CSV export</span>
+          <input id="bank" type="file" accept=".csv,text/csv">
+          <span class="file-name" id="bank-name">No file selected</span>
+        </label>
+      </div>
+
+      <p id="status" class="status-message" role="status" aria-live="polite">
+        Select both CSV files to begin.
+      </p>
+
+      <div class="actions">
+        <button id="run" type="button" disabled>
+          <span aria-hidden="true">↔</span> Reconcile files
+        </button>
+        <button id="clear" class="button-secondary" type="button">
+          Clear all data
+        </button>
+      </div>
+    </section>
+
+    <section id="results" hidden>
+      <div class="section-heading results-heading">
+        <div>
+          <span class="eyebrow">RECONCILIATION REPORT</span>
+          <h2>Results overview</h2>
+          <p>Review transaction matching and investigate exceptions.</p>
+        </div>
+        <button id="download" type="button">
+          <span aria-hidden="true">↓</span> Download CSV report
+        </button>
+      </div>
+
+      <div id="dashboard-kpis" class="kpi-grid"></div>
+
+      <div class="chart-grid">
+        <section class="panel chart-panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Reconciliation status</h3>
+              <p>Matched versus unmatched result rows</p>
+            </div>
+            <span class="chart-icon" aria-hidden="true">◉</span>
+          </div>
+          <div id="reconciliation-chart" class="chart-content"></div>
+          <div class="chart-footer">
+            <span><i class="legend-dot matched-dot"></i> Matched</span>
+            <span><i class="legend-dot unmatched-dot"></i> Unmatched</span>
+          </div>
+        </section>
+
+        <section class="panel chart-panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Discrepancies</h3>
+              <p>Distribution of unmatched and exception rows</p>
+            </div>
+            <span class="chart-icon" aria-hidden="true">◔</span>
+          </div>
+          <div id="discrepancy-chart" class="chart-content"></div>
+        </section>
+      </div>
+
+      <section class="panel amount-panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Amount comparison</h3>
+            <p>Compare payment amounts with the corresponding bank records.</p>
+          </div>
+          <span class="step-label">TOP 10</span>
+        </div>
+
+        <div class="amount-legend">
+          <span><i class="legend-dot payment-dot"></i> Payment amount</span>
+          <span><i class="legend-dot bank-dot"></i> Bank amount</span>
+        </div>
+        <div id="amount-chart" class="amount-list"></div>
+      </section>
+
+      <section class="panel transactions-panel">
+        <div class="section-heading">
+          <div>
+            <h3>Transaction explorer</h3>
+            <p>Search references and filter transactions by reconciliation status.</p>
+          </div>
+          <span id="table-count" class="record-count"></span>
+        </div>
+
+        <div class="filter-grid">
+          <label for="search-filter">
+            Search transaction
+            <input id="search-filter" type="search" placeholder="Search reference..." autocomplete="off">
+          </label>
+          <label for="status-filter">
+            Filter by status
+            <select id="status-filter">
+              <option value="ALL">All statuses</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Reference</th>
+                <th scope="col">Payment amount</th>
+                <th scope="col">Bank amount</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody id="rows">
+              <tr>
+                <td colspan="4">Upload both CSV files to view transactions.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+
+    <footer>
+      <strong>ReconcileAI</strong>
+      <span> · Privacy-focused prototype · Review discrepancies before making financial decisions.</span>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

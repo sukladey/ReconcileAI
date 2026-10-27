@@ -1,0 +1,9 @@
+metric,count
+bank_transactions,1000
+payment_records,1005
+unique_payment_transactions,990
+duplicate_payment_records,15
+matched,945
+missing_payment,30
+missing_bank_record,20
+amount_mismatch,25

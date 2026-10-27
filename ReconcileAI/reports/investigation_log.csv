@@ -1,0 +1,4 @@
+transaction_id,reconciliation_status,risk_score,risk_level,investigation_status,analyst_notes,updated_at
+EXT00002,MISSING_BANK_RECORD,60,MEDIUM,Under Review,,2026-10-26T08:38:05
+EXT00004,MISSING_BANK_RECORD,60,MEDIUM,Under Review,,2026-10-26T08:44:55
+EXT00001,MISSING_BANK_RECORD,80,HIGH,Under Review,"Reviewed the reconciliation report and identified a missing bank record for this transaction. The transaction is marked as HIGH risk with a risk score of 80/100. Further verification of the bank statement, payment reference, and settlement report is required. Pending bank confirmation, the case remains open. No financial loss or fraud has been confirmed.",2026-10-26T10:05:30
